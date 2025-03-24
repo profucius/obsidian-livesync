@@ -1,18 +1,4 @@
 #!/bin/bash
-if [[ -z "$hostname" ]]; then
-    echo "ERROR: Hostname missing"
-    exit 1
-fi
-if [[ -z "$username" ]]; then
-    echo "ERROR: Username missing"
-    exit 1
-fi
-
-if [[ -z "$password" ]]; then
-    echo "ERROR: Password missing"
-    exit 1
-fi
-
 echo "-- Configuring CouchDB by REST APIs... -->"
 
 until (curl -X POST "100.80.141.91:5984/_cluster_setup" -H "Content-Type: application/json" -d "{\"action\":\"enable_single_node\",\"username\":\"${username}\",\"password\":\"${password}\",\"bind_address\":\"0.0.0.0\",\"port\":5984,\"singlenode\":true}" --user "${username}:${password}"); do sleep 5; done
